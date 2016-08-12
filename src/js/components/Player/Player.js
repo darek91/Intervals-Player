@@ -1,22 +1,28 @@
 import React from 'react';
 import { connect } from "react-redux"
+
+// Components
+import ActionInfo from 'material-ui/svg-icons/action/info';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
-import ActionInfo from 'material-ui/svg-icons/action/info';
-import UpNext from "./UpNext";
 import Sound from 'react-sound';
+import UpNext from "./UpNext";
 
-import { playSong, songPlaying } from '../../actions/playerActions';
-
-window.moment = require('moment');
-require("moment-duration-format");
-
-const moment = window.moment;
+// Actions
+import { loadTrack, playSong, songPlaying } from '../../actions/playerActions';
+import { trackPlayed } from "../../actions/upNextActions";
 
 @connect((store) => {
-  return {};
+  return {
+    upnext: store.upnext,
+    player: store.player
+  };
 })
 class Player extends React.Component {
+
+  componentWillMount() {
+    this.props.dispatch(loadTrack());
+  }
 
   handleSongPlaying (audio) {
     this.props.dispatch(songPlaying(audio));
@@ -24,18 +30,30 @@ class Player extends React.Component {
 
   togglePlay(){
     // Check current playing state
-    this.props.dispatch(playSong(this.props.contents.status !== Sound.status.PLAYING));
+    this.props.dispatch(playSong(this.props.player.status !== Sound.status.PLAYING));
   }
 
   handleSongFinished () {
-    // TODO Take next
+    this.props.dispatch(loadTrack(this.props.upnext[0], true));
+    this.props.dispatch(trackPlayed(this.props.upnext[0]));
+  }
+
+  formatMilliseconds(milliseconds) {
+     var hours = Math.floor(milliseconds / 3600000);
+     milliseconds = milliseconds % 3600000;
+     var minutes = Math.floor(milliseconds / 60000);
+     milliseconds = milliseconds % 60000;
+     var seconds = Math.floor(milliseconds / 1000);
+     milliseconds = Math.floor(milliseconds % 1000);
+
+     return (minutes < 10 ? '0' : '') + minutes + ':' +
+        (seconds < 10 ? '0' : '') + seconds;
   }
 
   render () {
-    const track = this.props.contents;
-
-    const fullSubTitle = moment.duration(track.elapsed).format("mm:ss", true) + ' / ' + moment.duration(track.total).format("mm:ss") + " ------ " + track.artistName;
-
+    const track = this.props.player;
+    const fullSubTitle = this.formatMilliseconds(track.elapsed) + ' / ' + this.formatMilliseconds(track.total) + " ------ " + track.artistName;
+    document.title = `${track.trackName} - ${track.artistName} | Surround Player`;
     return (
       <Card>
 
@@ -51,7 +69,7 @@ class Player extends React.Component {
         </CardActions>
 
         <CardText>
-          <UpNext />
+          <UpNext hideTitle={true} />
         </CardText>
 
         <Sound

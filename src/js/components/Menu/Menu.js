@@ -14,12 +14,13 @@ class Menu extends React.Component {
     return (
       <div>
         <List>
-          <ListItem containerElement={<Link to="/" />} primaryText="All Tracks" leftIcon={<ContentInbox />} />
+          <ListItem containerElement={<Link to="/" />} primaryText="Most Played" leftIcon={<ContentInbox />} />
           <ListItem containerElement={<Link to="/starred" />} primaryText="Starred" leftIcon={<ActionGrade />} />
           <ListItem containerElement={<Link to="/upnext" />} primaryText="Up Next" leftIcon={<ContentSend />} />
           <ListItem containerElement={<Link to="/history" />} primaryText="History" leftIcon={<ContentDrafts />} />
           <ListItem containerElement={<Link to="/discover" />} primaryText="Discover" leftIcon={<ContentDrafts />} />
           <ListItem containerElement={<Link to="/local" />} primaryText="Local Files" leftIcon={<ContentInbox />} />
+          <ListItem containerElement={<Link to="/search" />} primaryText="Search" leftIcon={<ContentInbox />} />
         </List>
         <Divider />
         <List>

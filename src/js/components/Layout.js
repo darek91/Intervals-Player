@@ -7,10 +7,6 @@ import Paper from 'material-ui/Paper'
 import Player from "./Player/Player"
 import SurroundAppBar from "./AppBar"
 
-// Import Actions
-import { fetchUser } from "../actions/userActions"
-import { loadTrack } from "../actions/playerActions"
-
 const styles = {
   div:{
     display: 'flex',
@@ -32,21 +28,11 @@ const styles = {
   }
 };
 
-@connect((store) => {
-  return {
-    player: store.player
-  };
-})
 export default class Layout extends React.Component {
 
-  componentWillMount() {
-    // TODO - get last track from the history
-    this.props.dispatch(loadTrack());
-  }
+  componentWillMount() {}
 
   render() {
-    const { player } = this.props;
-
     return <div>
       <SurroundAppBar />
       <div style={styles.div}>
@@ -57,7 +43,7 @@ export default class Layout extends React.Component {
           {this.props.children}
         </Paper>
         <Paper zDepth={0} style={styles.player}>
-          <Player contents={player} />
+          <Player />
         </Paper>
       </div>
     </div>
