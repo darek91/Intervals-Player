@@ -19,7 +19,7 @@ export function loadTrack(track, autoplay) {
 
     track_id.then(id => {
       console.info("ID:", id);
-      return Axios.get(`http://api.soundcloud.com/tracks/${id || 1}?client_id=${client_id}`)
+      return Axios.get(`https://api.soundcloud.com/tracks/${id || 1}?client_id=${client_id}`)
         .then(function (response) {
           const data  = {...response.data, autoplay };
 
