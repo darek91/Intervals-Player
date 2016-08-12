@@ -24,6 +24,8 @@ class Track extends React.Component {
   render() {
     const { track } = this.props;
 
+    const cover = track.cover.replace(/http:/, "https:");
+
     return <ListItem onDoubleClick={this.handleDoubleClick.bind(this)} primaryText={track.trackName} secondaryText={track.artistName} leftAvatar={<Avatar src={track.cover} />} />
   }
 }
