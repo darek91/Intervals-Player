@@ -27,7 +27,7 @@ class Menu extends React.Component {
           <ListItem primaryText="Profile" rightIcon={<ActionInfo />} />
           <ListItem primaryText="Settings" rightIcon={<ActionInfo />} />
           <ListItem primaryText="Donate" rightIcon={<ActionInfo />} />
-          <ListItem primaryText="About" rightIcon={<ActionInfo />} />
+          <ListItem containerElement={<Link to="/about" />} primaryText="About" rightIcon={<ActionInfo />} />
         </List>
       </div>
     )
