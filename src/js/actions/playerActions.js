@@ -41,17 +41,17 @@ export function songPlaying(audio) {
   }
 }
 
-export function playSong (play) {
+export function playSong (play, position) {
   return function (dispatch) {
     if(play) {
       dispatch({
         type: 'PLAY_SONG',
-        payload: play
+        payload: { play, position }
       });
     } else {
       dispatch({
         type: 'PAUSE_SONG',
-        payload: play
+        payload: { play, position }
       });
     }
   }
