@@ -55,30 +55,29 @@ export default function reducer(state = defaultState, action) {
       return {
         ...state,
         total: track.total,
-        elapsed: track.elapsed,
-        position: track.position
+        elapsed: track.elapsed
+      }
+    }
+
+    case "CHANGE_POSITION": {
+      return {
+        ...state,
+        position: action.payload,
+        elapsed: action.payload
       }
     }
 
     case "PLAY_SONG": {
-      let position = action.payload.position || 0;
-
       return {
         ...state,
-        status: Sound.status.PLAYING,
-        elapsed: position * state.total,
-        position
+        status: Sound.status.PLAYING
       }
     }
 
     case "PAUSE_SONG": {
-      console.log(action.payload);
-      let position = action.payload.position || 0;
       return {
         ...state,
-        status: Sound.status.PAUSED,
-        elapsed: position * state.total,
-        position
+        status: Sound.status.PAUSED
       }
     }
 

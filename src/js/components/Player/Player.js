@@ -11,7 +11,7 @@ import Slider from 'material-ui/Slider';
 import UpNext from "./UpNext";
 
 // Actions
-import { loadTrack, playSong, songPlaying } from '../../actions/playerActions';
+import { loadTrack, playSong, songPlaying, changePosition } from '../../actions/playerActions';
 import { trackPlayed } from "../../actions/upNextActions";
 
 @connect((store) => {
@@ -41,7 +41,7 @@ class Player extends React.Component {
   }
 
   handleSlider (e, value) {
-    this.props.dispatch(playSong(this.props.player.status === Sound.status.PLAYING, value));
+    this.props.dispatch(changePosition(value));
   }
 
   formatMilliseconds(milliseconds) {
@@ -67,10 +67,10 @@ class Player extends React.Component {
         </CardMedia>
         <Slider
           min={0}
-          max={1}
+          max={track.total}
           step={0.01}
           defaultValue={0}
-          value={track.elapsed / track.total}
+          value={track.elapsed}
           onChange={this.handleSlider.bind(this)}
         />
         <CardActions>

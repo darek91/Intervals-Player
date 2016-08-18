@@ -34,9 +34,17 @@ export function songPlaying(audio) {
       type: 'TRACK_PLAYING',
       payload: {
         elapsed: audio.position,
-        total: audio.duration,
-        // position: audio.position / audio.duration
+        total: audio.duration
       }
+    });
+  }
+}
+
+export function changePosition (position) {
+  return function (dispatch) {
+    dispatch({
+      type: 'CHANGE_POSITION',
+      payload: position
     });
   }
 }
