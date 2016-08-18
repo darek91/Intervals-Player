@@ -34,24 +34,32 @@ export function songPlaying(audio) {
       type: 'TRACK_PLAYING',
       payload: {
         elapsed: audio.position,
-        total: audio.duration,
-        // position: audio.position / audio.duration
+        total: audio.duration
       }
     });
   }
 }
 
-export function playSong (play) {
+export function changePosition (position) {
+  return function (dispatch) {
+    dispatch({
+      type: 'CHANGE_POSITION',
+      payload: position
+    });
+  }
+}
+
+export function playSong (play, position) {
   return function (dispatch) {
     if(play) {
       dispatch({
         type: 'PLAY_SONG',
-        payload: play
+        payload: { play, position }
       });
     } else {
       dispatch({
         type: 'PAUSE_SONG',
-        payload: play
+        payload: { play, position }
       });
     }
   }
