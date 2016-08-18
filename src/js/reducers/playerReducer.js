@@ -4,7 +4,7 @@ import DB from '../data/DB';
 const client_id = "3c56d20ccfabaa5f003c458ee78dffb7";
 
 const defaultState = {
-  status: Sound.status.STOPPED,
+  status: Sound.status.PAUSED,
   position: 0,
   elapsed: 0,
   total: 0,
@@ -45,7 +45,7 @@ export default function reducer(state = defaultState, action) {
         trackName: track.title,
         artistName,
         albumName: '',
-        status: track.autoplay ? Sound.status.PLAYING : Sound.status.STOPPED
+        status: track.autoplay ? Sound.status.PLAYING : Sound.status.PAUSED
       }
     }
 
@@ -55,8 +55,15 @@ export default function reducer(state = defaultState, action) {
       return {
         ...state,
         total: track.total,
-        elapsed: track.elapsed,
-        position: track.position
+        elapsed: track.elapsed
+      }
+    }
+
+    case "CHANGE_POSITION": {
+      return {
+        ...state,
+        position: action.payload,
+        elapsed: action.payload
       }
     }
 
@@ -77,7 +84,7 @@ export default function reducer(state = defaultState, action) {
     case "STOP_SONG": {
       return {
         ...state,
-        status: Sound.status.STOPPED
+        status: Sound.status.PAUSED
       }
     }
   }

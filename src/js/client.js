@@ -3,17 +3,22 @@ import ReactDOM from "react-dom"
 import { Provider } from "react-redux"
 import { Router, Route, IndexRoute, hashHistory } from "react-router"
 import injectTapEventPlugin from 'react-tap-event-plugin'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 // Import Components
 import About from "./components/Static/About"
-import History from './components/TracksList/History'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import MostPlayed from './components/TracksList/MostPlayed'
+import Donate from "./components/Static/Donate"
+import History from "./components/TracksList/History"
+import MostPlayed from "./components/TracksList/MostPlayed"
 import Layout from "./components/Layout"
-import TracksList from "./components/TracksList/TracksList"
-import Search from "./components/Search/Search"
-import UpNext from "./components/Player/UpNext"
 import LocalBrowser from "./components/TracksList/LocalBrowser"
+import Search from "./components/Search/Search"
+import Settings from "./components/Settings/Settings"
+import TracksList from "./components/TracksList/TracksList"
+import UpNext from "./components/Player/UpNext"
+
+// Import theme
+import playerTheme from "./theme";
 
 import store from "./store"
 
@@ -21,7 +26,7 @@ injectTapEventPlugin();
 const app = document.getElementById('app')
 
 ReactDOM.render(
-  <MuiThemeProvider>
+  <MuiThemeProvider muiTheme={playerTheme}>
     <Provider store={store}>
     <Router history={hashHistory}>
       <Route path="/" component={Layout}>
@@ -34,8 +39,8 @@ ReactDOM.render(
         <Route path="search" component={Search}/>
 
         <Route path="about" component={About} />
-        <Route path="settings" />
-        <Route path="donate" />
+        <Route path="settings" component={Settings} />
+        <Route path="donate" component={About} />
       </Route>
     </Router>
     </Provider>

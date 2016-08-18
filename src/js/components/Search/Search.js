@@ -29,7 +29,7 @@ class Search extends React.Component {
           floatingLabelText="Track or Artist Name"
           fullWidth={true}
         />
-        <TracksList featured={[]} tracks={this.props.search} title={' '} />
+        <TracksList featured={[]} tracks={this.props.search} title={'Search Results:'} />
       </div>
     )
   }

@@ -5,11 +5,13 @@ import { connect } from "react-redux"
 import ActionInfo from 'material-ui/svg-icons/action/info';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
+import FontIcon from "material-ui/FontIcon";
 import Sound from 'react-sound';
+import Slider from 'material-ui/Slider';
 import UpNext from "./UpNext";
 
 // Actions
-import { loadTrack, playSong, songPlaying } from '../../actions/playerActions';
+import { loadTrack, playSong, songPlaying, changePosition } from '../../actions/playerActions';
 import { trackPlayed } from "../../actions/upNextActions";
 
 @connect((store) => {
@@ -30,12 +32,16 @@ class Player extends React.Component {
 
   togglePlay(){
     // Check current playing state
-    this.props.dispatch(playSong(this.props.player.status !== Sound.status.PLAYING));
+    this.props.dispatch(playSong(this.props.player.status !== Sound.status.PLAYING, this.props.player.elapsed / this.props.player.total));
   }
 
   handleSongFinished () {
     this.props.dispatch(loadTrack(this.props.upnext[0], true));
     this.props.dispatch(trackPlayed(this.props.upnext[0]));
+  }
+
+  handleSlider (e, value) {
+    this.props.dispatch(changePosition(value));
   }
 
   formatMilliseconds(milliseconds) {
@@ -56,16 +62,22 @@ class Player extends React.Component {
     document.title = `${track.trackName} - ${track.artistName} | Surround Player`;
     return (
       <Card>
-
         <CardMedia overlay={<CardTitle title={track.trackName} subtitle={ fullSubTitle } />}>
           <img src={track.cover} />
         </CardMedia>
-
+        <Slider
+          min={0}
+          max={track.total}
+          step={0.01}
+          defaultValue={0}
+          value={track.elapsed}
+          onChange={this.handleSlider.bind(this)}
+        />
         <CardActions>
-          <FlatButton onClick={this.togglePlay.bind(this)} label="Play / Pause" />
-          <FlatButton label="Stop" />
-          <FlatButton label="Prev" />
-          <FlatButton label="Next" />
+          <FlatButton onClick={this.togglePlay.bind(this)} label={<FontIcon className="fa fa-play" />} />
+          <FlatButton label={<FontIcon className="fa fa-stop" />} />
+          <FlatButton label={<FontIcon className="fa fa-step-backward" />} />
+          <FlatButton label={<FontIcon className="fa fa-step-forward" />} />
         </CardActions>
 
         <CardText>

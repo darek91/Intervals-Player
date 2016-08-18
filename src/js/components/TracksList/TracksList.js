@@ -13,6 +13,7 @@ class TracksList extends React.Component {
     return (
       <div>
         <h2>{title || "All Tracks" }</h2>
+        <Divider />
         <List>
           {featured && featured.map((track, i) => <Track key={i} track={track} playlist={tracks} />)}
         </List>
