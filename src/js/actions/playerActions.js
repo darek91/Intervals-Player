@@ -6,6 +6,7 @@ const client_id = "3c56d20ccfabaa5f003c458ee78dffb7";
 export function loadTrack(track, autoplay) {
   return function(dispatch) {
     let track_id;
+
     if(!track){
       autoplay = false;
     }
@@ -21,6 +22,8 @@ export function loadTrack(track, autoplay) {
       return Axios.get(`https://api.soundcloud.com/tracks/${id || 238933353}?client_id=${client_id}`)
         .then(function (response) {
           const data  = {...response.data, autoplay };
+
+          document.title = `${data.title} - ${data.user.username} | Intervals`;
 
           dispatch({type: "LOAD_TRACK", payload: data});
         });
