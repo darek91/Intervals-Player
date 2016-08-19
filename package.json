@@ -36,7 +36,7 @@
   "devDependencies": {},
   "scripts": {
     "start": "electron main.js",
-    "dev": "./node_modules/.bin/webpack-dev-server --content-base src --inline --hot",
+    "dev": "./node_modules/.bin/webpack-dev-server --content-base ./ --inline --hot",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

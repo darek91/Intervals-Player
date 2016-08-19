@@ -59,7 +59,9 @@ class Player extends React.Component {
   render () {
     const track = this.props.player;
     const fullSubTitle = this.formatMilliseconds(track.elapsed) + ' / ' + this.formatMilliseconds(track.total) + " ------ " + track.artistName;
-    document.title = `${track.trackName} - ${track.artistName} | Surround Player`;
+
+    const playButtonIcon = this.props.player.status === Sound.status.PLAYING ? 'fa-pause' : 'fa-play';
+
     return (
       <Card>
         <CardMedia overlay={<CardTitle title={track.trackName} subtitle={ fullSubTitle } />}>
@@ -74,9 +76,9 @@ class Player extends React.Component {
           onChange={this.handleSlider.bind(this)}
         />
         <CardActions>
-          <FlatButton onClick={this.togglePlay.bind(this)} label={<FontIcon className="fa fa-play" />} />
-          <FlatButton label={<FontIcon className="fa fa-stop" />} />
           <FlatButton label={<FontIcon className="fa fa-step-backward" />} />
+          <FlatButton onClick={this.togglePlay.bind(this)} label={<FontIcon className={"fa " + playButtonIcon} />} />
+          <FlatButton label={<FontIcon className="fa fa-stop" />} />
           <FlatButton label={<FontIcon className="fa fa-step-forward" />} />
         </CardActions>
 
