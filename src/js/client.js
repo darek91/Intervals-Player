@@ -23,7 +23,6 @@ import playerTheme from "./theme";
 import store from "./store"
 
 injectTapEventPlugin();
-const app = document.getElementById('app')
 
 ReactDOM.render(
   <MuiThemeProvider muiTheme={playerTheme}>
@@ -45,4 +44,4 @@ ReactDOM.render(
     </Router>
     </Provider>
   </MuiThemeProvider>
-, app);
+, document.body);
