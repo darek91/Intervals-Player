@@ -12,7 +12,7 @@ function createWindow () {
 
   mainWindow = new BrowserWindow({width: 1900, height: 800})
 
-  mainWindow.loadURL(`file://${__dirname}/index.html`)
+  mainWindow.loadURL(`file://${__dirname}/index-electron.html`)
 
   mainWindow.on('closed', function () {
     mainWindow = null

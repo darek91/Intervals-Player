@@ -19,6 +19,10 @@ module.exports = {
       }
     ]
   },
+  node: {
+    fs: "empty",
+    path: "empty"
+  },
   output: {
     path: __dirname + "/dist/",
     filename: "client.min.js"

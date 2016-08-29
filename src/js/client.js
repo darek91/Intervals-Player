@@ -44,4 +44,4 @@ ReactDOM.render(
     </Router>
     </Provider>
   </MuiThemeProvider>
-, document.body);
+, document.getElementById('app'));

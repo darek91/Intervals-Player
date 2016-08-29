@@ -13,13 +13,16 @@ export function loadTrack(track, autoplay) {
 
     if (track && track.track_id) {
       track_id = Promise.resolve(track.track_id);
+    } else if (track && track.type === "File") {
+      track_id = Promise.reject(track);
+      console.log(track);
     } else {
       track_id = DB.history.orderBy("played").reverse().limit(1).toArray()
         .then(response => response[0].track_id );
     }
 
     track_id.then(id => {
-      return Axios.get(`https://api.soundcloud.com/tracks/${id || 238933353}?client_id=${client_id}`)
+      return Axios.get(`https://api.soundcloud.com/tracks/${id || 236844909}?client_id=${client_id}`)
         .then(function (response) {
           const data  = {...response.data, autoplay };
 
