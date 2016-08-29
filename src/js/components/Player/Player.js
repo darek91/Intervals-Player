@@ -62,12 +62,20 @@ class Player extends React.Component {
 
     const playButtonIcon = this.props.player.status === Sound.status.PLAYING ? 'fa-pause' : 'fa-play';
 
+    const Style = {
+      slider: {
+        marginTop: '-10px',
+        marginBottom: 0
+      }
+    };
+
     return (
       <Card>
         <CardMedia overlay={<CardTitle title={track.trackName} subtitle={ fullSubTitle } />}>
           <img src={track.cover} />
         </CardMedia>
         <Slider
+          sliderStyle={Style.slider}
           min={0}
           max={track.total}
           step={0.01}
@@ -82,7 +90,7 @@ class Player extends React.Component {
           <FlatButton label={<FontIcon className="fa fa-step-forward" />} />
         </CardActions>
 
-        <CardText>
+        <CardText style={{padding: '0', marginTop: '-20px'}}>
           <UpNext hideTitle={true} />
         </CardText>
 

@@ -19,30 +19,44 @@ const styles = {
     flex: '1 1 100%;',
     flexDirection: 'row wrap',
     width: '100%',
-    height: '100%'
+    height: '100%',
+    overflow: 'hidden'
   },
   content:{
     paddingLeft: "271px",
-    paddingRight: "15px",
+    paddingRight: "415px",
     flex: '1 1 100%;',
     flexDirection: 'column',
     maxHeight: "100%",
-    textAlign: 'left',
+    overflowY: 'auto',
+    textAlign: 'left'
   },
   player: {
-    flex: '1 1 100%;',
-    flexDirection: 'column',
-    maxWidth: '400px',
-    height: "100%",
+    top: "64px"
   }
 };
 
 export default class Layout extends React.Component {
 
-  componentWillMount() {}
+  componentWillMount() {
+
+  }
+
+  handleDrag (e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
+  handleDrop (e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    // var files = e.originalEvent.dataTransfer.files;
+    console.info(e.nativeEvent.dataTransfer.files);
+  }
 
   render() {
-    return <div style={styles.root}>
+    return <div style={styles.root} onDragEnter={this.handleDrag.bind(this)} onDragOver={this.handleDrag.bind(this)} onDrop={this.handleDrop.bind(this)}>
       <SurroundAppBar />
       <div style={styles.container}>
         <Drawer open={true}>
@@ -52,9 +66,9 @@ export default class Layout extends React.Component {
         <Paper zDepth={0} style={styles.content}>
           {this.props.children}
         </Paper>
-        <Paper zDepth={0} style={styles.player}>
+        <Drawer width={400} open={true} openSecondary={true} containerStyle={styles.player}>
           <Player />
-        </Paper>
+        </Drawer>
       </div>
     </div>
   }
