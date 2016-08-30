@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 
 import TracksList from './TracksList';
 
-import { loadPath } from '../../actions/localBrowserActions'
+import { loadGoogleDrive } from '../../actions/localBrowserActions'
 
 @connect((store) => {
   return {
@@ -13,7 +13,7 @@ import { loadPath } from '../../actions/localBrowserActions'
 class LocalBrowser extends React.Component {
 
   componentWillMount() {
-      this.props.dispatch(loadPath('/'));
+      // this.props.dispatch(loadGoogleDrive());
   }
 
   render() {
@@ -27,7 +27,11 @@ class LocalBrowser extends React.Component {
         </div>
     }
 
-    return <div>{files}</div>;
+    return (
+      <div>
+        {files}
+      </div>
+    );
   }
 }
 

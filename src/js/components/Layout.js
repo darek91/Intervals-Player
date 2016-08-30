@@ -2,11 +2,13 @@ import React from "react"
 import { connect } from "react-redux"
 
 // Import Components
+import AppBar from 'material-ui/AppBar'
 import Drawer from "material-ui/Drawer"
 import Menu from "./Menu/Menu"
 import Paper from 'material-ui/Paper'
 import Player from "./Player/Player"
 import SurroundAppBar from "./AppBar"
+import GoogleLogin from 'react-google-login';
 
 const styles = {
   root: {
@@ -50,9 +52,6 @@ export default class Layout extends React.Component {
   handleDrop (e) {
     e.preventDefault();
     e.stopPropagation();
-
-    // var files = e.originalEvent.dataTransfer.files;
-    console.info(e.nativeEvent.dataTransfer.files);
   }
 
   render() {
