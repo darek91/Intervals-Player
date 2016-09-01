@@ -6,6 +6,7 @@ import search from "./searchReducer"
 import upnext from "./upNextReducer"
 import contextMenu from "./contextMenuReducer"
 import local from "./localReducer"
+import user from "./googleReducer"
 
 export default combineReducers({
   player,
@@ -13,5 +14,6 @@ export default combineReducers({
   search,
   upnext,
   contextMenu,
-  local
+  local,
+  user
 })

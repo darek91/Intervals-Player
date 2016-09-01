@@ -26,7 +26,7 @@ import { toggleTrackContextMenu } from "../../actions/contextMenuActions"
 class Track extends React.Component {
   handleDoubleClick() {
     this.props.dispatch(loadTrack(this.props.track, true));
-    this.props.dispatch(fillNextUp(this.props.playlist));
+    this.props.dispatch(fillNextUp(this.props.playlist.slice(1, 10)));
   }
 
   contextMenu(e) {
@@ -42,8 +42,14 @@ class Track extends React.Component {
 
   render() {
     const { track } = this.props;
+    let cover;
 
-    const cover = track.cover.replace(/http:/, "https:");
+    if(track.cover) {
+      // FIXME use artwork_url
+      cover = track.cover.replace(/http:/, "https:");
+    } else if(track.artwork_url) {
+      cover = track.artwork_url.replace(/http:/, "https:");
+    }
 
     return (
       <div>

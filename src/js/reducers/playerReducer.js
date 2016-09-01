@@ -20,9 +20,10 @@ export default function reducer(state = defaultState, action) {
 
   switch (action.type) {
     case "LOAD_TRACK": {
+      console.log(action);
       const track = action.payload;
       const cover = track.artwork_url ? track.artwork_url.replace(/large/, 't500x500') : track.user.avatar_url;
-      const artistName = track.user.username ? track.user.username : "Unknown";
+      const artistName = track.artistName || track.user.username || "Unknown";
       const stream_url = track.stream_url + `?client_id=${client_id}`;
 
       DB.history.add({

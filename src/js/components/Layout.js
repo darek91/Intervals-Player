@@ -8,7 +8,6 @@ import Menu from "./Menu/Menu"
 import Paper from 'material-ui/Paper'
 import Player from "./Player/Player"
 import SurroundAppBar from "./AppBar"
-import GoogleLogin from 'react-google-login';
 
 const styles = {
   root: {
@@ -56,7 +55,7 @@ export default class Layout extends React.Component {
 
   render() {
     return <div style={styles.root} onDragEnter={this.handleDrag.bind(this)} onDragOver={this.handleDrag.bind(this)} onDrop={this.handleDrop.bind(this)}>
-      <SurroundAppBar />
+      <SurroundAppBar showUser={true}/>
       <div style={styles.container}>
         <Drawer open={true}>
           <SurroundAppBar />

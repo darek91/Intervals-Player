@@ -12,16 +12,27 @@ export function loadTrack(track, autoplay) {
     }
 
     if (track && track.track_id) {
-      track_id = Promise.resolve(track.track_id);
-    } else if (track && track.type === "File") {
-      track_id = Promise.reject(track);
-      console.log(track);
+      Promise.resolve(track.track_id).then(res => {
+        return loadSoundcloud(dispatch, res)
+      });
+    } else if (track && track.type === "GoogleDrive") {
+      loadGoogleDrive(dispatch, track)
     } else {
-      track_id = DB.history.orderBy("played").reverse().limit(1).toArray()
-        .then(response => response[0].track_id );
+      DB.history.orderBy("played").reverse().limit(1).toArray()
+        .then(response => response[0].track_id ).then(res => {
+          return loadSoundcloud(dispatch, res)
+        });
     }
 
-    track_id.then(id => {
+    function loadGoogleDrive (dispatch, track) {
+      console.log(track);
+        dispatch({type: "LOAD_TRACK", payload: {
+          ...track,
+          autoplay
+        }});
+    }
+
+    function loadSoundcloud (dispatch, id) {
       return Axios.get(`https://api.soundcloud.com/tracks/${id || 236844909}?client_id=${client_id}`)
         .then(function (response) {
           const data  = {...response.data, autoplay };
@@ -30,7 +41,7 @@ export function loadTrack(track, autoplay) {
 
           dispatch({type: "LOAD_TRACK", payload: data});
         });
-    });
+    }
   }
 }
 

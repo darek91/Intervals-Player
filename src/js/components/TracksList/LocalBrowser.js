@@ -3,34 +3,26 @@ import { connect } from "react-redux"
 
 import TracksList from './TracksList';
 
-import { loadGoogleDrive } from '../../actions/localBrowserActions'
+import { loadGoogleDrive } from '../../actions/googleActions'
 
 @connect((store) => {
   return {
-    local: store.local
+    user: store.user
   };
 })
 class LocalBrowser extends React.Component {
 
-  componentWillMount() {
-      // this.props.dispatch(loadGoogleDrive());
-  }
-
   render() {
-    let files = this.props.local.tracks.map(i => <div>{i}</div>);
-
-    if(this.props.local.isError) {
-      // TODO create error message component
-      files = <div>
-          <h2>Aww, snap! Something went wrong.</h2>
-          <h5>{this.props.local.message}</h5>
-        </div>
+    let tracks;
+    
+    try {
+      tracks = this.props.user.googleTracks;
+    } catch (e) {
+      tracks = [];
     }
 
     return (
-      <div>
-        {files}
-      </div>
+      <TracksList title="Google Drive Library" featured={[]} tracks={tracks}/>
     );
   }
 }
