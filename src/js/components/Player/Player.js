@@ -58,7 +58,7 @@ class Player extends React.Component {
 
   render () {
     const track = this.props.player;
-    const fullSubTitle = this.formatMilliseconds(track.elapsed) + ' / ' + this.formatMilliseconds(track.total) + " ------ " + track.artistName;
+    const fullSubTitle = this.formatMilliseconds(track.elapsed) + ' / ' + this.formatMilliseconds(track.duration) + track.artistName ? " ------ " + track.artistName : "";
 
     const playButtonIcon = this.props.player.status === Sound.status.PLAYING ? 'fa-pause' : 'fa-play';
 
@@ -71,8 +71,8 @@ class Player extends React.Component {
 
     return (
       <Card>
-        <CardMedia overlay={<CardTitle title={track.trackName} subtitle={ fullSubTitle } />}>
-          <img src={track.cover} />
+        <CardMedia overlay={<CardTitle title={track.trackName || track.fileName} subtitle={ fullSubTitle } />}>
+          <img src={track.artwork_url} />
         </CardMedia>
         <Slider
           sliderStyle={Style.slider}
@@ -87,7 +87,7 @@ class Player extends React.Component {
           <FlatButton label={<FontIcon className="fa fa-step-backward" />} />
           <FlatButton onClick={this.togglePlay.bind(this)} label={<FontIcon className={"fa " + playButtonIcon} />} />
           <FlatButton label={<FontIcon className="fa fa-stop" />} />
-          <FlatButton label={<FontIcon className="fa fa-step-forward" />} />
+          <FlatButton onClick={this.handleSongFinished.bind(this)} label={<FontIcon className="fa fa-step-forward" />} />
         </CardActions>
 
         <CardText style={{padding: '0', marginTop: '-20px'}}>

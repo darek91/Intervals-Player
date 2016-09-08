@@ -3,41 +3,31 @@ import DB from '../data/DB';
 
 const client_id = "3c56d20ccfabaa5f003c458ee78dffb7";
 
+const GOOGLE_DRIVE = 1;
+const SOUNDCLOUD = 2;
+
 export function loadTrack(track, autoplay) {
   return function(dispatch) {
-    let track_id;
+    let track_id, title;
 
     if(!track){
-      autoplay = false;
+      return;
     }
 
-    if (track && track.track_id) {
-      Promise.resolve(track.track_id).then(res => {
-        return loadSoundcloud(dispatch, res)
-      });
-    } else if (track && track.type === "GoogleDrive") {
-      loadGoogleDrive(dispatch, track)
-    } else {
-      DB.history.orderBy("played").reverse().limit(1).toArray()
-        .then(response => response[0].track_id ).then(res => {
-          return loadSoundcloud(dispatch, res)
-        });
-    }
+    title = track.trackName || track.fileName;
 
-    function loadGoogleDrive (dispatch, track) {
-      console.log(track);
-        dispatch({type: "LOAD_TRACK", payload: {
-          ...track,
-          autoplay
-        }});
-    }
+    document.title = `${title} | Intervals`;
+
+    dispatch({type: "LOAD_TRACK", payload: {
+      ...track,
+      artwork_url: track.artwork_url ? track.artwork_url : 'https://universe-beauty.com/albums/userpics/1/5/Sci-Fi---Space-Art-1920x1200_355.jpg',
+      autoplay
+    }});
 
     function loadSoundcloud (dispatch, id) {
       return Axios.get(`https://api.soundcloud.com/tracks/${id || 236844909}?client_id=${client_id}`)
         .then(function (response) {
           const data  = {...response.data, autoplay };
-
-          document.title = `${data.title} - ${data.user.username} | Intervals`;
 
           dispatch({type: "LOAD_TRACK", payload: data});
         });

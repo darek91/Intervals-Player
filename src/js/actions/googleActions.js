@@ -3,12 +3,17 @@ import Axios from 'axios';
 // var jsmediatags = require("jsmediatags");
 
 export function authUser(user) {
-  return {
-    type: "AUTH_USER",
-    payload: {
-      user
-    }
-  }
+  return function (dispatch) {
+    Axios.get('/api/getUserInfo').then(response => {
+      console.log(response);
+      dispatch({
+        type: "AUTH_USER",
+        payload: {
+          ...response.data
+        }
+      });
+    });
+  };
 }
 
 export function loadGoogleDrive() {
@@ -31,7 +36,7 @@ function refreshLibrary (dispatch) {
             'q': "mimeType='audio/mpeg'"
           }).execute(function(resp) {
             dispatch({type: "REFRESHING_LIBRARY_PENDING"});
-            
+
             let tracks = resp.items.map(track => {
               // TODO get tags
               return {

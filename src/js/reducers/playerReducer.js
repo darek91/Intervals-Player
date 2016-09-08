@@ -20,33 +20,10 @@ export default function reducer(state = defaultState, action) {
 
   switch (action.type) {
     case "LOAD_TRACK": {
-      console.log(action);
-      const track = action.payload;
-      const cover = track.artwork_url ? track.artwork_url.replace(/large/, 't500x500') : track.user.avatar_url;
-      const artistName = track.artistName || track.user.username || "Unknown";
-      const stream_url = track.stream_url + `?client_id=${client_id}`;
-
-      DB.history.add({
-        played: Date.now(),
-        track_id: track.id,
-        trackName: track.title,
-        total: track.duration,
-        cover,
-        artistName,
-        albumName: '',
-        stream_url
-      });
-
       return {
         ...state,
-        loaded: true,
-        total: track.duration,
-        stream_url,
-        cover,
-        trackName: track.title,
-        artistName,
-        albumName: '',
-        status: track.autoplay ? Sound.status.PLAYING : Sound.status.PAUSED
+        ...action.payload,
+        status: action.payload.autoplay ? Sound.status.PLAYING : Sound.status.PAUSED,
       }
     }
 

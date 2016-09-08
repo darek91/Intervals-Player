@@ -4,6 +4,12 @@ import { connect } from "react-redux"
 import AppBar from 'material-ui/AppBar';
 import Avatar from 'material-ui/Avatar';
 import GoogleLogin from 'react-google-login';
+import RaisedButton from 'material-ui/RaisedButton';
+import Popover from 'material-ui/Popover';
+import Menu from 'material-ui/Menu';
+import MenuItem from 'material-ui/MenuItem';
+import Dialog from 'material-ui/Dialog';
+import Upload from './Upload/Upload';
 
 import { authUser, loadGoogleDrive } from "../actions/googleActions";
 
@@ -14,32 +20,35 @@ import { authUser, loadGoogleDrive } from "../actions/googleActions";
 })
 class SurroundAppBar extends React.Component {
 
-  authCallback (data) {
-    this.props.dispatch(authUser(data))
-    this.props.dispatch(loadGoogleDrive());
+  componentWillMount () {
+    this.props.dispatch(authUser());
   }
 
   render() {
     let user;
 
-    if(this.props.showUser) {
-      if(this.props.user.logged){
-        user = <Avatar src={this.props.user.avatar} />;
-      } else {
-        user = (<GoogleLogin
-          clientId="794118858803-7m0716vfodm8b0uufru2342pviimau2h.apps.googleusercontent.com"
-          buttonText="Sign In"
-          callback={this.authCallback.bind(this)}
-          scope="https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/plus.me openid email profile https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive.readonly.metadata https://www.googleapis.com/auth/drive.appdata"
-        />);
-      }
+    if(this.props.showUser && this.props.user.social) {
+      // TODO move to separate component + style it
+      user = (
+        <div style={{ height: '100%', display: 'flex', textAlign: 'right', color: '#000', marginTop: "5px" }}>
+          <div style={{ marginRight: '10px' }}>
+            <b>{this.props.user.name.first + ' ' + this.props.user.name.last}</b>
+            <br />
+            <span>{this.props.user.email}</span>
+          </div>
+          <Avatar src={this.props.user.social.google.photoUrl} />
+        </div>);
     }
 
     return (
       <AppBar
-      title="Intervals"
-      iconElementRight={user}
-      />
+        title="Intervals"
+        iconElementRight={user}
+      >
+        <div style={{ position: "absolute", top: (64 - 36) / 2, left: 271 }}>
+          <Upload />
+        </div>
+      </AppBar>
     );
   }
 }

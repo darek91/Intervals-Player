@@ -9,8 +9,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import About from "./components/Static/About"
 import Donate from "./components/Static/Donate"
 import History from "./components/TracksList/History"
-import MostPlayed from "./components/TracksList/MostPlayed"
 import Layout from "./components/Layout"
+import Library from "./components/TracksList/Library"
 import LocalBrowser from "./components/TracksList/LocalBrowser"
 import Search from "./components/Search/Search"
 import Settings from "./components/Settings/Settings"
@@ -29,7 +29,7 @@ ReactDOM.render(
     <Provider store={store}>
     <Router history={hashHistory}>
       <Route path="/" component={Layout}>
-        <IndexRoute component={MostPlayed}/>
+        <IndexRoute component={Library}/>
         <Route path="starred" component={TracksList}/>
         <Route path="history" component={History}/>
         <Route path="upNext" component={UpNext}/>

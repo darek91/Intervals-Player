@@ -8,14 +8,11 @@ export default function reducer(state={
 
     switch (action.type) {
       case "AUTH_USER": {
-        let res = action.payload.user;
+        let res = action.payload;
 
         return {
           ...state,
-          logged: true,
-          avatar: res.w3.Qaa,
-          name: res.w3.ig,
-          session: res.Zi
+          ...res
         }
       }
 

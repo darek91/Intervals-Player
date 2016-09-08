@@ -17,16 +17,19 @@ const styles = {
     marginTop: '-64px',
     paddingTop: '64px',
     display: 'flex',
-    flex: '1 1 100%;',
+    flex: '1 1 100%',
     flexDirection: 'row wrap',
     width: '100%',
     height: '100%',
+    position: "relative",
     overflow: 'hidden'
   },
   content:{
     paddingLeft: "271px",
     paddingRight: "415px",
-    flex: '1 1 100%;',
+    width: "100%",
+    height: window.innerHeight - 64 + "px",
+    flex: '1 1 100%',
     flexDirection: 'column',
     maxHeight: "100%",
     overflowY: 'auto',
@@ -56,18 +59,18 @@ export default class Layout extends React.Component {
   render() {
     return <div style={styles.root} onDragEnter={this.handleDrag.bind(this)} onDragOver={this.handleDrag.bind(this)} onDrop={this.handleDrop.bind(this)}>
       <SurroundAppBar showUser={true}/>
-      <div style={styles.container}>
         <Drawer open={true}>
           <SurroundAppBar />
           <Menu />
         </Drawer>
-        <Paper zDepth={0} style={styles.content}>
-          {this.props.children}
-        </Paper>
+        <div style={styles.container}>
+          <Paper zDepth={0} style={styles.content}>
+            {this.props.children}
+          </Paper>
+        </div>
         <Drawer width={400} open={true} openSecondary={true} containerStyle={styles.player}>
           <Player />
         </Drawer>
-      </div>
     </div>
   }
 }

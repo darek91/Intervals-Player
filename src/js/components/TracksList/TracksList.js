@@ -21,14 +21,14 @@ class TracksList extends React.Component {
       <div>
         <h2>{ title || "All Tracks" }</h2>
         <Divider />
-        <List>
+        <div>
           {featured && featured.map((track, i) => <Track key={i} track={track} playlist={tracks} />)}
-        </List>
+        </div>
         {divider}
         { empty }
-        <List>
+        <div>
           {tracks && tracks.map && tracks.map((track, i) => <Track key={i} track={track} playlist={tracks} />)}
-        </List>
+        </div>
       </div>
     )
   }

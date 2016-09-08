@@ -7,6 +7,7 @@ import upnext from "./upNextReducer"
 import contextMenu from "./contextMenuReducer"
 import local from "./localReducer"
 import user from "./googleReducer"
+import library from "./libraryReducer"
 
 export default combineReducers({
   player,
@@ -15,5 +16,6 @@ export default combineReducers({
   upnext,
   contextMenu,
   local,
-  user
+  user,
+  library
 })

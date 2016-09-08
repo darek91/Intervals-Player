@@ -11,7 +11,7 @@ export default function reducer(state=[], action) {
 
       case "TRACK_PLAYED": {
         let remove_track = action.payload;
-        return [...state].filter(track => track.track_id !== remove_track.track_id);
+        return [...state].filter(track => track.id !== remove_track.id);
       }
     }
 

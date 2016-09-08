@@ -37,8 +37,7 @@ class Track extends React.Component {
 
 
   handleRequestClose() {
-    // this.props.dispatch(toggleTrackContextMenu());
-  };
+  }
 
   render() {
     const { track } = this.props;
@@ -51,31 +50,21 @@ class Track extends React.Component {
       cover = track.artwork_url.replace(/http:/, "https:");
     }
 
+    const title = track.trackName || track.fileName;
+
+    let avatar;
+    if(cover) {
+      avatar = <Avatar src={cover} />;
+    } else {
+        avatar = <Avatar>{ title && title.replace(/([a-z]|[0-9]|\.|\-|\s)/g, "").charAt(0) }</Avatar>;
+    }
+
     return (
-      <div>
-        <ListItem
+        <div style={{ position: 'relative', padding: '15px 0', margin: '5px 0' }}
           onDoubleClick={this.handleDoubleClick.bind(this)}
-          // onContextMenu={this.contextMenu.bind(this)}
-          primaryText={track.trackName}
-          secondaryText={track.artistName}
-          leftAvatar={<Avatar src={cover} />}
-          rightIconButton={
-            <IconMenu
-              iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-              anchorOrigin={{horizontal: 'left', vertical: 'top'}}
-              targetOrigin={{horizontal: 'left', vertical: 'top'}}
-            >
-              <MenuItem primaryText="Play only this" />
-              <MenuItem primaryText="Play up next" />
-              <MenuItem primaryText="Add to queue" />
-              <MenuItem primaryText="Add to favourites" />
-              <MenuItem primaryText="Add to playlist" />
-              <Divider />
-              <MenuItem primaryText="Remove From List" />
-            </IconMenu>
-          }
-        />
-      </div>
+        >
+          {title} {track.artistName ? ' - ' + track.artistName : ''}
+        </div>
     )
   }
 }
