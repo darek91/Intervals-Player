@@ -5,15 +5,18 @@ const client_id = "3c56d20ccfabaa5f003c458ee78dffb7";
 
 const defaultState = {
   status: Sound.status.PAUSED,
-  position: 0,
-  elapsed: 0,
-  total: 0,
-  cover: '',
-  loaded: false,
+  trackId: '',
+  stream_url: '',
+  type: 1,
   trackName: '',
   artistName: '',
   albumName: '',
-  stream_url: ''
+  duration: 0,
+  elapsed: 0,
+  fileName: '',
+  artwork_url: '',
+  genere: '',
+  plays: 0
 };
 
 export default function reducer(state = defaultState, action) {
@@ -32,7 +35,7 @@ export default function reducer(state = defaultState, action) {
 
       return {
         ...state,
-        total: track.total,
+        duration: track.total,
         elapsed: track.elapsed
       }
     }

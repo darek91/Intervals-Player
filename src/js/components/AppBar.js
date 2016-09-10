@@ -10,8 +10,7 @@ import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import Dialog from 'material-ui/Dialog';
 import Upload from './Upload/Upload';
-
-import { authUser, loadGoogleDrive } from "../actions/googleActions";
+import User from './User/User';
 
 @connect((store) => {
   return {
@@ -20,30 +19,11 @@ import { authUser, loadGoogleDrive } from "../actions/googleActions";
 })
 class SurroundAppBar extends React.Component {
 
-  componentWillMount () {
-    this.props.dispatch(authUser());
-  }
-
   render() {
-    let user;
-
-    if(this.props.showUser && this.props.user.social) {
-      // TODO move to separate component + style it
-      user = (
-        <div style={{ height: '100%', display: 'flex', textAlign: 'right', color: '#000', marginTop: "5px" }}>
-          <div style={{ marginRight: '10px' }}>
-            <b>{this.props.user.name.first + ' ' + this.props.user.name.last}</b>
-            <br />
-            <span>{this.props.user.email}</span>
-          </div>
-          <Avatar src={this.props.user.social.google.photoUrl} />
-        </div>);
-    }
-
     return (
       <AppBar
         title="Intervals"
-        iconElementRight={user}
+        iconElementRight={<User showUser={this.props.showUser} />}
       >
         <div style={{ position: "absolute", top: (64 - 36) / 2, left: 271 }}>
           <Upload />

@@ -20,7 +20,6 @@ export function loadTrack(track, autoplay) {
 
     dispatch({type: "LOAD_TRACK", payload: {
       ...track,
-      artwork_url: track.artwork_url ? track.artwork_url : 'https://universe-beauty.com/albums/userpics/1/5/Sci-Fi---Space-Art-1920x1200_355.jpg',
       autoplay
     }});
 

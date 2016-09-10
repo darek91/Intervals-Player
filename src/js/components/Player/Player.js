@@ -32,7 +32,7 @@ class Player extends React.Component {
 
   togglePlay(){
     // Check current playing state
-    this.props.dispatch(playSong(this.props.player.status !== Sound.status.PLAYING, this.props.player.elapsed / this.props.player.total));
+    this.props.dispatch(playSong(this.props.player.status !== Sound.status.PLAYING, this.props.player.elapsed / this.props.player.duration));
   }
 
   handleSongFinished () {
@@ -58,7 +58,7 @@ class Player extends React.Component {
 
   render () {
     const track = this.props.player;
-    const fullSubTitle = this.formatMilliseconds(track.elapsed) + ' / ' + this.formatMilliseconds(track.duration) + track.artistName ? " ------ " + track.artistName : "";
+    const fullSubTitle = this.formatMilliseconds(track.elapsed) + ' / ' + this.formatMilliseconds(track.duration);
 
     const playButtonIcon = this.props.player.status === Sound.status.PLAYING ? 'fa-pause' : 'fa-play';
 
@@ -71,22 +71,21 @@ class Player extends React.Component {
 
     return (
       <Card>
-        <CardMedia overlay={<CardTitle title={track.trackName || track.fileName} subtitle={ fullSubTitle } />}>
-          <img src={track.artwork_url} />
+        <CardMedia overlay={<CardTitle title={track.trackName || track.fileName || 'No Track'} subtitle={ fullSubTitle } />}>
+          <img src={track.artwork_url || "/default_cover.jpg"} />
         </CardMedia>
         <Slider
           sliderStyle={Style.slider}
           min={0}
-          max={track.total}
+          max={track.duration || 1}
           step={0.01}
           defaultValue={0}
           value={track.elapsed}
           onChange={this.handleSlider.bind(this)}
         />
-        <CardActions>
+        <CardActions style={{ textAlign: 'center' }}>
           <FlatButton label={<FontIcon className="fa fa-step-backward" />} />
           <FlatButton onClick={this.togglePlay.bind(this)} label={<FontIcon className={"fa " + playButtonIcon} />} />
-          <FlatButton label={<FontIcon className="fa fa-stop" />} />
           <FlatButton onClick={this.handleSongFinished.bind(this)} label={<FontIcon className="fa fa-step-forward" />} />
         </CardActions>
 

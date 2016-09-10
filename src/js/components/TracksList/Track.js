@@ -60,7 +60,7 @@ class Track extends React.Component {
     }
 
     return (
-        <div style={{ position: 'relative', padding: '15px 0', margin: '5px 0' }}
+        <div style={{ position: 'relative', padding: '10px 0', margin: '5px 0' }}
           onDoubleClick={this.handleDoubleClick.bind(this)}
         >
           {title} {track.artistName ? ' - ' + track.artistName : ''}

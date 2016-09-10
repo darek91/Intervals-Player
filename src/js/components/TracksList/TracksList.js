@@ -18,17 +18,9 @@ class TracksList extends React.Component {
     }
 
     return (
-      <div>
-        <h2>{ title || "All Tracks" }</h2>
-        <Divider />
-        <div>
-          {featured && featured.map((track, i) => <Track key={i} track={track} playlist={tracks} />)}
-        </div>
-        {divider}
-        { empty }
-        <div>
-          {tracks && tracks.map && tracks.map((track, i) => <Track key={i} track={track} playlist={tracks} />)}
-        </div>
+      <div style={{ padding: '0 15px' }}>
+        { this.props.title? <h2>{this.props.title} <Divider style={{ marginTop: '10px' }} /> </h2> : '' }
+        {tracks && tracks.map && tracks.map((track, i) => <Track key={i} track={track} playlist={tracks} />)}
       </div>
     )
   }
