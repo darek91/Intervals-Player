@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from "react-redux";
 
-import PlaylistCard from '../Playlist/PlaylistCard';
+import Playlists from '../Playlist';
 import TracksList from '../TrackList';
 import {Tabs, Tab} from 'material-ui/Tabs';
 
@@ -25,9 +25,8 @@ class Library extends React.Component {
           <TracksList title="All Tracks" tracks={this.props.library.tracks}/>
         </Tab>
         <Tab label="Playlists">
-          <div style={{display: 'flex', padding:'0 15px', flexDirection: 'column'}}>
-            <h2 style={{flex: '0 0 100%'}}>Playlists</h2>
-            {this.props.library.playlists.map(playlist => <PlaylistCard playlist={playlist} />)}
+          <div style={{padding:'0 15px'}}>
+            <Playlists playlists={this.props.library.playlists} title="Playlists" />
           </div>
         </Tab>
         <Tab label="Soundcloud">

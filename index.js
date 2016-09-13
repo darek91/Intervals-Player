@@ -42,4 +42,4 @@ ReactDOM.render(
     </Router>
     </Provider>
   </MuiThemeProvider>
-, document.getElementById('app'));
+, document.getElementById('intervals'));
